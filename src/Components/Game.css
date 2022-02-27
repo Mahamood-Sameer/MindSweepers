@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Shizuru&display=swap');
+.game_container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: black;
+}
+.left_side_board {
+  flex: 0.2;
+  display: flex;
+  flex-direction: column;
+}
+.left_side_image_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+}
+.left_side_player_container{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.player_info{
+    display: flex;
+    margin-bottom: 30px;
+    
+}
+.player_name{
+    margin-left: 30px !important;
+    color: white !important;
+}
+.image_game {
+  width: 540px;
+  object-fit: contain;
+}
+.game_board_container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.boxes {
+  width: 60px;
+  height: 40px;
+  margin: 3px;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 2px -2px 2px rgb(8, 185, 8);
+  border: none;
+  border-radius: 5px;
+}
+.boxes::placeholder {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 100;
+  color: black;
+}
+.boxes:focus {
+  outline: 0;
+}
