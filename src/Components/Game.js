@@ -5,10 +5,13 @@ import MuiAlert from "@mui/material/Alert";
 import image from "../Images/Screenshot (98).png";
 import { Avatar } from "@mui/material";
 import Input from "@mui/material/Input";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const ariaLabel = { "aria-label": "description" };
 
 function Game() {
+  // Players
+  const [player, setPlayer] = useState(1);
   // Sieve for finding primes
   const PRIMES = new Array(41);
   for (let i = 0; i < 41; i++) {
@@ -54,6 +57,19 @@ function Game() {
     ["", "", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", "", ""],
   ];
+  // Disable
+  const [disable, setdisable] = useState([
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+  ]);
 
   // Onchange event call
   const handleChange = (row, column, event) => {
@@ -96,8 +112,8 @@ function Game() {
   };
 
   // Players name
-  const [player1,setplayer1]=useState("");
-  const [player2,setplayer2]=useState("");
+  const [player1, setplayer1] = useState("");
+  const [player2, setplayer2] = useState("");
 
   // gcd Claculator
   const gcd = (a, b) => {
@@ -181,6 +197,9 @@ function Game() {
             q = j - 1;
           while (p >= 0 && q >= 0) {
             document.getElementById(`${p}_${q}`).style.backgroundColor = "red";
+            var cpydis1 = [...disable];
+            cpydis1[p][q] = true;
+            setdisable(cpydis1);
             p--;
             q--;
           }
@@ -188,6 +207,9 @@ function Game() {
           q = j + 1;
           while (p >= 0 && q < 10) {
             document.getElementById(`${p}_${q}`).style.backgroundColor = "red";
+            var cpydis2 = [...disable];
+            cpydis2[p][q] = true;
+            setdisable(cpydis2);
             p--;
             q++;
           }
@@ -196,6 +218,9 @@ function Game() {
             n = j + 1;
           while (m < 10 && n < 10) {
             document.getElementById(`${m}_${n}`).style.backgroundColor = "red";
+            var cpydis3 = [...disable];
+            cpydis3[m][n] = true;
+            setdisable(cpydis3);
             m++;
             n++;
           }
@@ -203,16 +228,111 @@ function Game() {
           n = j - 1;
           while (m < 10 && n >= 0) {
             document.getElementById(`${m}_${n}`).style.backgroundColor = "red";
+            var cpydis4 = [...disable];
+            cpydis4[m][n] = true;
+            setdisable(cpydis4);
             m++;
             n--;
           }
         }
+        var cpydis5 = [...disable];
+        cpydis5[i][j] = true;
+        setdisable(cpydis5);
+        setPlayer((player) => (player + 1) % 2);
+        console.log(player + 1);
+        Factorsofk(2);
+        Factorsofk(3);
+        Factorsofk(5);
+        Factorsofk(7);
+        Factorsofk(11);
+        Factorsofk(13);
+        Factorsofk(17);
+        Factorsofk(19);
       } else {
         handleClickwar();
         let copy = [...arr];
         copy[i][j] = "";
         setarr(copy);
       }
+    }
+  };
+
+  // Disabling the boxes;
+  const DISABLE = (i, j) => {
+    let p = i - 1,
+      q = j - 1;
+    while (p >= 0 && q >= 0) {
+      if (arr[p][q] === "") {
+        document.getElementById(`${p}_${q}`).style.backgroundColor = "red";
+        var cpydis1 = [...disable];
+        cpydis1[p][q] = true;
+        setdisable(cpydis1);
+      }
+
+      p--;
+      q--;
+    }
+    p = i - 1;
+    q = j + 1;
+    while (p >= 0 && q < 10) {
+      if (arr[p][q] === "") {
+        document.getElementById(`${p}_${q}`).style.backgroundColor = "red";
+        var cpydis2 = [...disable];
+        cpydis2[p][q] = true;
+        setdisable(cpydis2);
+      }
+      p--;
+      q++;
+    }
+    // Second below diagonal
+    let m = i + 1,
+      n = j + 1;
+    while (m < 10 && n < 10) {
+      if (arr[m][n] === "") {
+        document.getElementById(`${m}_${n}`).style.backgroundColor = "red";
+        var cpydis3 = [...disable];
+        cpydis3[m][n] = true;
+        setdisable(cpydis3);
+      }
+      m++;
+      n++;
+    }
+    m = i + 1;
+    n = j - 1;
+    while (m < 10 && n >= 0) {
+      if (arr[m][n] === "") {
+        document.getElementById(`${m}_${n}`).style.backgroundColor = "red";
+        var cpydis4 = [...disable];
+        cpydis4[m][n] = true;
+        setdisable(cpydis4);
+      }
+      m++;
+      n--;
+    }
+  };
+
+  // Calculate factors of k
+  const Factorsofk = (k) => {
+    var count = 0;
+    var pos_x = -1,
+      pos_y = -1;
+    for (var i = 0; i < 10; i++) {
+      for (var j = 0; j < 10; j++) {
+        if (arr[i][j]) {
+          var temp = parseInt(arr[i][j]);
+          if (temp === k) {
+            pos_x = i;
+            pos_y = j;
+          }
+          if (temp % k === 0) {
+            count++;
+          }
+        }
+      }
+    }
+    if (count === Math.floor(40 / k)) {
+      console.log(count, "Completed");
+      DISABLE(pos_x,pos_y)
     }
   };
 
@@ -225,15 +345,45 @@ function Game() {
           <div className="left_side_image_container">
             <img src={image} alt="" className="image_game" />
           </div>
+
           <div className="left_side_player_container">
-            <div className="player_info">
-              <Avatar src="https://avatars.githubusercontent.com/u/86797046?v=4"/>
-              <Input className="player_name" placeholder="Player-1" inputProps={ariaLabel} value={player1} onChange={(e)=>setplayer1(e.target.value)} />
+            <div className="player_info_box">
+              {player === 1 ? (
+                <ArrowForwardIcon className="player_turn" />
+              ) : null}
+
+              <div className="player_info">
+                <Avatar src="https://avatars.githubusercontent.com/u/86797046?v=4" />
+                <Input
+                  className="player_name"
+                  placeholder="Player-1"
+                  inputProps={ariaLabel}
+                  value={player1}
+                  onChange={(e) => setplayer1(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="player_info">
-              <Avatar src="https://avatars.githubusercontent.com/u/86797096?v=5" />
-              <Input className="player_name" placeholder="Player-2" inputProps={ariaLabel} value={player2} onChange={(e)=>setplayer2(e.target.value)} />
+            <div className="player_info_box">
+              {player === 0 ? (
+                <ArrowForwardIcon className="player_turn" />
+              ) : null}
+              <div className="player_info">
+                <Avatar src="https://avatars.githubusercontent.com/u/86797096?v=5" />
+                <Input
+                  className="player_name"
+                  placeholder="Player-2"
+                  inputProps={ariaLabel}
+                  value={player2}
+                  onChange={(e) => setplayer2(e.target.value)}
+                />
+              </div>
             </div>
+          </div>
+          <h3>Numbers remaining to use : </h3>
+          <div className="numbers_can_be_used">
+            {Hash?.map((number, i) => {
+              if (!number && i !== 0) return <p>{i}</p>;
+            })}
           </div>
         </div>
         <div className="game_board_container">
@@ -253,6 +403,7 @@ function Game() {
                         CheckDiagonals(i, j);
                       }}
                       id={`${i}_${j}`}
+                      disabled={disable[i][j]}
                     />
                   ))}
                 </div>
