@@ -6,7 +6,18 @@ import image from "../Images/Screenshot (98).png";
 import { Avatar } from "@mui/material";
 import Input from "@mui/material/Input";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { Link } from "react-router-dom";
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 const ariaLabel = { "aria-label": "description" };
 
 function Game() {
@@ -118,7 +129,6 @@ function Game() {
   // gcd Claculator
   const gcd = (a, b) => {
     if (a === 0) return b;
-    console.log(a, b);
     return gcd(b % a, a);
   };
 
@@ -239,15 +249,8 @@ function Game() {
         cpydis5[i][j] = true;
         setdisable(cpydis5);
         setPlayer((player) => (player + 1) % 2);
-        console.log(player + 1);
-        Factorsofk(2);
-        Factorsofk(3);
-        Factorsofk(5);
-        Factorsofk(7);
-        Factorsofk(11);
-        Factorsofk(13);
-        Factorsofk(17);
-        Factorsofk(19);
+        checkthepossibilites(parseInt(arr[i][j]));
+        declare();
       } else {
         handleClickwar();
         let copy = [...arr];
@@ -257,82 +260,114 @@ function Game() {
     }
   };
 
-  // Disabling the boxes;
-  const DISABLE = (i, j) => {
+  const [open_winner, setopenWinner] = useState(false);
+
+  const handleClickOpen_winner = () => {
+    setopenWinner(true);
+  };
+
+  const handleClose_winner = () => {
+    setopenWinner(false);
+  };
+  // Winner
+  const declare = () => {
+    var count = 0;
+    for (var i = 0; i < 10; i++) {
+      for (var j = 0; j < 10; j++) {
+        if (disable[i][j]) {
+          count++;
+        }
+      }
+    }
+    if (count == 100) {
+      handleClickOpen_winner();
+    }
+  };
+
+  // Claculating Each and every box possibility
+
+  const DiagonalCheck = (temp, i, j) => {
+    var diagonalgcd = temp;
+    // First  diagonal
     let p = i - 1,
       q = j - 1;
     while (p >= 0 && q >= 0) {
-      if (arr[p][q] === "") {
-        document.getElementById(`${p}_${q}`).style.backgroundColor = "red";
-        var cpydis1 = [...disable];
-        cpydis1[p][q] = true;
-        setdisable(cpydis1);
+      if (arr[p][q] !== "") {
+        diagonalgcd = gcd(diagonalgcd, parseInt(arr[p][q]));
       }
-
       p--;
       q--;
     }
-    p = i - 1;
-    q = j + 1;
-    while (p >= 0 && q < 10) {
-      if (arr[p][q] === "") {
-        document.getElementById(`${p}_${q}`).style.backgroundColor = "red";
-        var cpydis2 = [...disable];
-        cpydis2[p][q] = true;
-        setdisable(cpydis2);
-      }
-      p--;
-      q++;
-    }
-    // Second below diagonal
     let m = i + 1,
       n = j + 1;
     while (m < 10 && n < 10) {
-      if (arr[m][n] === "") {
-        document.getElementById(`${m}_${n}`).style.backgroundColor = "red";
-        var cpydis3 = [...disable];
-        cpydis3[m][n] = true;
-        setdisable(cpydis3);
+      if (arr[m][n] !== "") {
+        diagonalgcd = gcd(diagonalgcd, parseInt(arr[m][n]));
       }
       m++;
       n++;
     }
+    if (diagonalgcd === 1) {
+      return false;
+    }
+    // Second  diagonal
+    diagonalgcd = temp;
+    p = i - 1;
+    q = j + 1;
+    while (p >= 0 && q < 10) {
+      if (arr[p][q] !== "") {
+        diagonalgcd = gcd(diagonalgcd, parseInt(arr[p][q]));
+      }
+      p--;
+      q++;
+    }
     m = i + 1;
     n = j - 1;
     while (m < 10 && n >= 0) {
-      if (arr[m][n] === "") {
-        document.getElementById(`${m}_${n}`).style.backgroundColor = "red";
-        var cpydis4 = [...disable];
-        cpydis4[m][n] = true;
-        setdisable(cpydis4);
+      if (arr[m][n] !== "") {
+        diagonalgcd = gcd(diagonalgcd, parseInt(arr[m][n]));
       }
       m++;
       n--;
     }
+    if (diagonalgcd === 1) {
+      return false;
+    }
+
+    return true;
   };
 
-  // Calculate factors of k
-  const Factorsofk = (k) => {
+  const checkthepossibilites = (number) => {
+    Hash[number] = 1;
+    var remaining = 0;
+    for (var p = 1; p < 41; p++) {
+      if (Hash[p] === 0) {
+        remaining++;
+      }
+    }
+
     var count = 0;
-    var pos_x = -1,
-      pos_y = -1;
     for (var i = 0; i < 10; i++) {
       for (var j = 0; j < 10; j++) {
-        if (arr[i][j]) {
-          var temp = parseInt(arr[i][j]);
-          if (temp === k) {
-            pos_x = i;
-            pos_y = j;
+        count = 0;
+        if (arr[i][j] === "") {
+          for (var k = 1; k < 41; k++) {
+            if (Hash[k] === 0) {
+              if (DiagonalCheck(k, i, j) === false) {
+                console.log(count, remaining);
+                count++;
+              }
+            }
           }
-          if (temp % k === 0) {
-            count++;
+          if (count === remaining) {
+            console.log("Not needed");
+            document.getElementById(`${i}_${j}`).style.backgroundColor = "red";
+            var cpydis = [...disable];
+            cpydis[i][j] = true;
+            setdisable(cpydis);
           }
         }
       }
-    }
-    if (count === Math.floor(40 / k)) {
-      console.log(count, "Completed");
-      DISABLE(pos_x,pos_y)
     }
   };
 
@@ -430,6 +465,26 @@ function Game() {
           Number Repeation is not allowed
         </Alert>
       </Snackbar>
+
+      {/* Winner Declaration */}
+      <Dialog
+        open={open_winner}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose_winner}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Congartulations 🎉🎊"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            {player == 1 ? <span>{player2}</span> : <span>{player1}</span>} won
+            the game
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose_winner}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
