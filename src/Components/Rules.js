@@ -37,8 +37,8 @@ function Rules() {
             </li>
             <br />
             <li>
-              In the end, if some player in his turn cannot insert any number
-              into the grid, he looses.
+              In the end, if some player in his turn cannot insert any valid number
+              into the grid, he loses.
             </li>
           </ul>
           <br />

@@ -474,7 +474,7 @@ function Game() {
         onClose={handleClose_winner}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Congartulations 🎉🎊"}</DialogTitle>
+        <DialogTitle>{"Congratulations 🎉🎊"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             {player == 1 ? <span>{player2}</span> : <span>{player1}</span>} won
