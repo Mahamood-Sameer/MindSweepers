@@ -80,7 +80,7 @@ function Game2() {
   //   Players total
   const [player1_total, setplayer1_total] = useState(0);
   const [player2_total, setplayer2_total] = useState(0);
-  const [number_used, setnumber_used] = useState(null);
+  const [number_used, setnumber_used] = useState(1);
 
   // ALert
   const [openalert, setopenalert] = useState(false);
@@ -113,6 +113,13 @@ function Game2() {
       if (values[row][col]) {
         var color;
         if (player === 1) {
+          if (parseInt(values[row][col]) !== number_used) {
+            setopenalert(true);
+            let copy = [...values];
+            copy[row][col] = "";
+            setValues(copy);
+            return;
+          }
           color = "#cc2dcc";
           setplayer1_total((e) => {
             return e + parseInt(values[row][col]);
@@ -130,13 +137,13 @@ function Game2() {
           setplayer2_total((e) => {
             return e + parseInt(values[row][col]);
           });
+          setnumber_used((e)=>(e+1));
         }
         document.getElementById(
           `rows_${row}_cols_${col}`
         ).style.backgroundColor = color;
         document.getElementById(`rows_${row}_cols_${col}`).style.color =
           "white";
-
         let copy = [...disable];
         copy[row][col] = true;
         setDiabsle(copy);
@@ -191,13 +198,9 @@ function Game2() {
               </div>
               <p className="score">Total : {player2_total}</p>
             </div>
-            {player != 1 ? (
-              <div className="number_should_use">
-                <h3>Number should be used : {number_used}</h3>
-              </div>
-            ) : (
-              <></>
-            )}
+            <div className="number_should_use">
+              <h3>Number should be used : {number_used}</h3>
+            </div>
           </div>
         </div>
         <div className="game_board">
@@ -216,7 +219,7 @@ function Game2() {
                     GameFunction(i, j);
                   }}
                   disabled={disable[i][j]}
-                  placeholder={`${i+1},${j+1}`}
+                  placeholder={`${i + 1},${j + 1}`}
                 />
               ))}
             </div>
