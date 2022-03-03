@@ -46,7 +46,7 @@ function Rules() {
             {" "}
             <div className="Playbtn">
               {" "}
-              <Link to="/game" className="playLink">Play </Link>
+              <Link to="/game2" className="playLink">Play </Link>
             </div>
           </center>
         </div>

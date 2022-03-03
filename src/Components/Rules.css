@@ -19,6 +19,9 @@
   color: white;
   height: 100%;
 }
+.image_rules{
+  width: 700px;
+}
 .header__rules_right h1 {
   text-align: center;
   font-family: "Comfortaa", cursive;

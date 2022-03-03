@@ -1,0 +1,47 @@
+.game2_container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: black;
+}
+.left_side_player_container_game2{
+    flex-grow: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.score{
+  color: white;
+  background-color: blue;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 5px;
+}
+.game_board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.board_boxes {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  margin: 2px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 5px;
+  box-shadow: 2px -2px 2px rgb(8, 185, 8);
+  border: none;
+  opacity: 1;
+  background-color: white;
+}
+.board_boxes::placeholder{
+  font-size: 20px;
+  color: rgb(41, 39, 39);
+}

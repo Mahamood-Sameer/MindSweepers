@@ -1,14 +1,18 @@
 import './App.css';
 import Rules from './Components/Rules';
 import Game from './Components/Game';
-import { Routes, Route, Link } from "react-router-dom";
+import Game2 from './Components/Game2';
+import Home from './Components/Home';
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<Rules />} />
-        <Route path='/game' element={<Game />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/game1' element={<Game2 />} />
+        <Route path='/rules' element={<Rules />} />
+        <Route path='/game2' element={<Game />} />
       </Routes>
     </div>
   );
