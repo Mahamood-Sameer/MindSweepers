@@ -427,6 +427,7 @@ function Game() {
                 <div className={`rows_${i} rows`}>
                   {row.map((col, j) => (
                     <input
+                      autoComplete="off"
                       placeholder={`(${i + 1},${j + 1})`}
                       value={arr[i][j]}
                       className={`row_${i}_col_${j} boxes`}

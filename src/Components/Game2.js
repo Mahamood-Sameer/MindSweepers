@@ -208,6 +208,7 @@ function Game2() {
             <div className="rows">
               {row.map((col, j) => (
                 <input
+                  autoComplete="off"
                   type="text"
                   className={`board_boxes`}
                   id={`rows_${i}_cols_${j}`}

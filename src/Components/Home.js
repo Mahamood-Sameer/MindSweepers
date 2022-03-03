@@ -10,7 +10,7 @@ function Home() {
         <img src={image} alt="" className="image_game image_rules image_home" />
       </div>
       <div className="home__games_right">
-        <Link to="/game1" className="links_to_games">Rhombus Game (Akshay)</Link>
+        <Link to="/rules2" className="links_to_games">Rhombus Game (Akshay)</Link>
         <br />
         <br />
         <Link to="/rules" className="links_to_games">Special Matrix (Varandeep)</Link>

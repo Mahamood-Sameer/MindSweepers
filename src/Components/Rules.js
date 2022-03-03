@@ -7,7 +7,7 @@ function Rules() {
   return (
     <div className="game_rules_container">
       <div className="header__rules_left">
-        <img src={image} alt="" className="image_game image_rules" />
+        <img src={image} alt="" className="image_rules" />
       </div>
       <div className="header__rules_right">
         <center>
