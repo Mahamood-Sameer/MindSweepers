@@ -14,6 +14,9 @@ function Home() {
         <br />
         <br />
         <Link to="/rules" className="links_to_games">Special Matrix (Varandeep)</Link>
+        <br />
+        <br />
+        <Link to="/game3" className="links_to_games">Game3(Ankit Bhaiya)</Link>
       </div>
     </div>
   );

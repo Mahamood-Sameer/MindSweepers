@@ -1,0 +1,38 @@
+.game3_container{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    /* background-color: black; */
+    /* z-index: -999; */
+}
+.board_boxes_game3{
+    margin: 5px 20px;
+    border-radius: 5px;
+    background-color: white;
+    z-index: 100;
+}
+.disable_boxes{
+    opacity: 0;
+    background:none;
+}
+.table_cover{
+    border: 3px solid white;
+    width: 600px;
+    height: 395px;
+    position: absolute;
+    z-index: -1;
+}
+.table_cover_2{
+    border: 3px solid white;
+    width: 420px;
+    height: 275px;
+    position: absolute;
+    z-index: -1;
+}
+.table_cover_3{
+    border: 3px solid white;
+    width: 230px;
+    height: 155px;
+    position: absolute;
+    z-index: -1;
+}

@@ -6,14 +6,6 @@ import image from "../Images/Screenshot (98).png";
 import { Avatar } from "@mui/material";
 import Input from "@mui/material/Input";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Slide from "@mui/material/Slide";
-import { PlaylistRemove } from "@mui/icons-material";
 
 const ariaLabel = { "aria-label": "description" };
 
