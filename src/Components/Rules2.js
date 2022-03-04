@@ -18,22 +18,26 @@ function Rules2() {
           <ul className="rules_box">
             <li>Player 1 starts from any circle and fills ‘1’</li>
             <br />
-            <li>Next Player 2 can place ‘1’ in any unmarked circle</li>
+            <li>Next Player 2 can place ‘1’ in any unmarked circle
+</li>
             <br />
             <li>
-              Next Player 1 places ‘2’ in any unmarked circle, then Player 2
-              places ‘2’ and this continues
+            The game stops when we have 1 circle left.
             </li>
             <br />
             <li>
-              Then the sum of the remaining circles is calculated. The player
-              with the maximum sum wins the game.
+            The neighboring circles of the last remaining circle are bombed, hence the players lose the number on the bombed circle. 
+
             </li>
             <br />
             <li>
-              If the sum is equal, the neighboring circles of the now bombed
-              circles are also bombed, and the process continues till we have a
-              clear winner.
+            Then the sum of the remaining circles is calculated. The player with the maximum sum wins the game.
+
+            </li>
+            <br />
+            <li>
+            If the sum is equal, the neighboring circles of the now bombed circles are also bombed, and the process continues till we have a clear winner. 
+
             </li>
           </ul>
           <br />

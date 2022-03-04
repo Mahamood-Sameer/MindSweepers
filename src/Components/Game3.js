@@ -84,29 +84,30 @@ function Game3() {
   const [degrees, setdegrees] = useState(null);
 
   const ROTATIONCALL = () => {
-      console.log(pres)
-    for(var i=0;i<=6;i++){
-        for(var j=0;j<=6;j++){
-            if(values[i][j]===pres){
-                console.log(i,j)
-                Greening(i,j,"white");
-                break;
-            }
+    console.log(pres);
+    for (var i = 0; i <= 6; i++) {
+      for (var j = 0; j <= 6; j++) {
+        if (values[i][j] === pres) {
+          console.log(i, j);
+          Greening(i, j, "white");
+          break;
         }
+      }
     }
-    var number = degrees / 45;
+    var number = degrees;
     for (var i = 0; i < number; i++) {
       ROTATE();
     }
-    console.log(pres)
-    for(var i=0;i<=6;i++){
-        for(var j=0;j<=6;j++){
-            if(values[i][j]===pres){
-                console.log(i,j)
-                Greening(i,j,"green");
-                break;
-            }
+    console.log(pres);
+    for (var i = 0; i <= 6; i++) {
+      for (var j = 0; j <= 6; j++) {
+        if (values[i][j] === pres) {
+          console.log(i, j);
+          // Greening(i,j,"green");
+          CheckAgain(i, j);
+          break;
         }
+      }
     }
   };
 
@@ -323,6 +324,24 @@ function Game3() {
     }
   };
 
+  //Checking again
+  const CheckAgain = (row, col) => {
+    ClearFunc();
+    let clear = [...prev];
+    clear[0] = row;
+    clear[1] = col;
+    setPrev(clear);
+    let copy = [...hash];
+    copy[values[row][col]] = 1;
+    setHash(copy);
+    var color=hash_color[values[row][col]]
+    document.getElementById(`rows_${row}_cols_${col}`).style.backgroundColor =
+      color;
+    document.getElementById(`rows_${row}_cols_${col}`).style.color = "white";
+    Greening(row, col, "green");
+    setPres(values[row][col]);
+  };
+
   //   Main function
 
   const CheckFunc = (row, col) => {
@@ -353,11 +372,11 @@ function Game3() {
     setplayer((e) => (e + 1) % 2);
   };
 
-  useEffect(()=>{
-    if(prev[0]===3 && prev[1]===3){
-        Greening(3,3,"green")
+  useEffect(() => {
+    if (prev[0] === 3 && prev[1] === 3) {
+      Greening(3, 3, "green");
     }
-  },[])
+  }, []);
 
   return (
     <div className="game3_container">
@@ -409,7 +428,7 @@ function Game3() {
           <br />
           <input
             type="number"
-            placeholder="Degrees"
+            placeholder="Units"
             value={degrees}
             onChange={(e) => {
               setdegrees(e.target.value);
@@ -436,7 +455,7 @@ function Game3() {
                     onFocus={() => {
                       CheckFunc(i, j);
                     }}
-                    disabled={(i===3&&j===3)?true:false}
+                    disabled={i === 3 && j === 3 ? true : false}
                     readOnly={true}
                   />
                 ) : (
