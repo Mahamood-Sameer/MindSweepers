@@ -1,21 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Game3.css";
 import image from "../Images/Screenshot (98).png";
-import image_2 from "../Images/Screenshot (112).png";
 import { Avatar } from "@mui/material";
 import Input from "@mui/material/Input";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { green } from "@mui/material/colors";
 
 const ariaLabel = { "aria-label": "description" };
 
 function Game3() {
+  //At present row col
+  const [pres, setPres] = useState(null);
   // Hash
   const [hash, setHash] = useState([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0,
   ]);
+  const [hash_color, setHash_color] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
   // Prev row col
-  const [prev, setPrev] = useState([-1, -1]);
+  const [prev, setPrev] = useState([3, 3]);
   const board = [
     [0, 1, 1, 0, 1, 1, 0],
     [1, 0, 1, 0, 1, 0, 1],
@@ -47,10 +79,115 @@ function Game3() {
   const [player1_total, setplayer1_total] = useState(0);
   const [player2_total, setplayer2_total] = useState(0);
 
+  // Rotation
+  const [radius, setRadius] = useState(null);
+  const [degrees, setdegrees] = useState(null);
+
+  const ROTATIONCALL = () => {
+      console.log(pres)
+    for(var i=0;i<=6;i++){
+        for(var j=0;j<=6;j++){
+            if(values[i][j]===pres){
+                console.log(i,j)
+                Greening(i,j,"white");
+                break;
+            }
+        }
+    }
+    var number = degrees / 45;
+    for (var i = 0; i < number; i++) {
+      ROTATE();
+    }
+    console.log(pres)
+    for(var i=0;i<=6;i++){
+        for(var j=0;j<=6;j++){
+            if(values[i][j]===pres){
+                console.log(i,j)
+                Greening(i,j,"green");
+                break;
+            }
+        }
+    }
+  };
+
+  const ROTATE = () => {
+    var row = 3 - radius;
+    var col = 3 - radius + 1;
+    var prev_num = values[row][col - 1];
+    while (col < 7) {
+      if (values[row][col] === "") {
+        col++;
+      } else {
+        var temp = values[row][col];
+        let copy = [...values];
+        copy[row][col] = prev_num;
+        setValues(copy);
+        var color = hash_color[prev_num];
+        if (color === "" || color === "green") color = "white";
+        prev_num = temp;
+        document.getElementById(
+          `rows_${row}_cols_${col}`
+        ).style.backgroundColor = color;
+        if (color === "white") {
+          document.getElementById(`rows_${row}_cols_${col}`).style.color =
+            "black";
+        } else {
+          document.getElementById(`rows_${row}_cols_${col}`).style.color =
+            "white";
+        }
+        col++;
+      }
+    }
+
+    row = parseInt(radius) + 3;
+    col = parseInt(6);
+    while (col >= 0) {
+      if (values[row][col] === "") {
+        col--;
+      } else {
+        var temp = values[row][col];
+        let copy = [...values];
+        copy[row][col] = prev_num;
+        setValues(copy);
+        var color = hash_color[prev_num];
+        if (color === "" || color === "green") color = "white";
+        prev_num = temp;
+        document.getElementById(
+          `rows_${row}_cols_${col}`
+        ).style.backgroundColor = color;
+        if (color === "white") {
+          document.getElementById(`rows_${row}_cols_${col}`).style.color =
+            "black";
+        } else {
+          document.getElementById(`rows_${row}_cols_${col}`).style.color =
+            "white";
+        }
+        col--;
+      }
+    }
+    row = 3 - radius;
+    col = 3 - radius;
+    let copy = [...values];
+    copy[row][col] = prev_num;
+    setValues(copy);
+    var color = hash_color[prev_num];
+    if (color === "" || color === "green") color = "white";
+    prev_num = temp;
+    document.getElementById(`rows_${row}_cols_${col}`).style.backgroundColor =
+      color;
+    if (color === "white") {
+      document.getElementById(`rows_${row}_cols_${col}`).style.color = "black";
+    } else {
+      document.getElementById(`rows_${row}_cols_${col}`).style.color = "white";
+    }
+    col--;
+    setRadius("");
+    setdegrees("");
+  };
+
   //Greening all the places
   const Greening = (row, col, color) => {
     //row-left
-    console.log(row, col);
     var i = row,
       j = col - 1;
     while (true) {
@@ -205,13 +342,22 @@ function Game3() {
       color = "orange";
       setplayer2_total((e) => e + values[row][col]);
     }
+    copy = [...hash_color];
+    copy[values[row][col]] = color;
+    setHash_color(copy);
     document.getElementById(`rows_${row}_cols_${col}`).style.backgroundColor =
       color;
     document.getElementById(`rows_${row}_cols_${col}`).style.color = "white";
     Greening(row, col, "green");
-
+    setPres(values[row][col]);
     setplayer((e) => (e + 1) % 2);
   };
+
+  useEffect(()=>{
+    if(prev[0]===3 && prev[1]===3){
+        Greening(3,3,"green")
+    }
+  },[])
 
   return (
     <div className="game3_container">
@@ -251,6 +397,29 @@ function Game3() {
             <p className="score">Total : {player2_total}</p>
           </div>
         </div>
+        <div className="rotation_btns">
+          <input
+            type="number"
+            placeholder="Radius"
+            value={radius}
+            onChange={(e) => {
+              setRadius(e.target.value);
+            }}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Degrees"
+            value={degrees}
+            onChange={(e) => {
+              setdegrees(e.target.value);
+            }}
+          />
+          <br />
+          <button className="submit_btn" onClick={ROTATIONCALL}>
+            Rotate
+          </button>
+        </div>
       </div>
       <div className="game_board">
         {board.map((row, i) => (
@@ -261,12 +430,13 @@ function Game3() {
                   <input
                     autoComplete="off"
                     type="text"
-                    className={`board_boxes board_boxes_game3`}
+                    className={`board_boxes board_boxes_game3 row_sepcial_${i}_col_${i}`}
                     id={`rows_${i}_cols_${j}`}
                     value={`${values[i][j]}`}
                     onFocus={() => {
                       CheckFunc(i, j);
                     }}
+                    disabled={(i===3&&j===3)?true:false}
                     readOnly={true}
                   />
                 ) : (
@@ -285,15 +455,12 @@ function Game3() {
             ))}
           </div>
         ))}
-        <div className="table_cover">
-
-        </div>
-        <div className="table_cover_2">
-
-        </div>
-        <div className="table_cover_3">
-
-        </div>
+        <div className="table_cover"></div>
+        <div className="table_cover_2"></div>
+        <div className="table_cover_3"></div>
+        <div className="table_cover_4"></div>
+        <div className="table_cover_5"></div>
+        <div className="table_cover_6"></div>
       </div>
     </div>
   );

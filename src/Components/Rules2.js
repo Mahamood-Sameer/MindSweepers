@@ -16,29 +16,24 @@ function Rules2() {
         <div className="header_rules_container">
           <br />
           <ul className="rules_box">
-            <li>The first player starts from any circle and fills 1.</li>
+            <li>Player 1 starts from any circle and fills ‘1’</li>
+            <br />
+            <li>Next Player 2 can place ‘1’ in any unmarked circle</li>
             <br />
             <li>
-              Then Player2 fills 1, Player1 then fills 2 and again Player2 fills
-              2 and so on.
-            </li>
-            <br />
-            <li>The game continues till 1 circle is left.</li>
-            <br />
-            <li>
-              And at last the neighboring layer circles of the blank circle is
-              bombed.That means the players will be losing some numbers.
+              Next Player 1 places ‘2’ in any unmarked circle, then Player 2
+              places ‘2’ and this continues
             </li>
             <br />
             <li>
-              And next if we calculate the sum of each player numbers, the one
-              with maximum sum is declared as a winner
+              Then the sum of the remaining circles is calculated. The player
+              with the maximum sum wins the game.
             </li>
             <br />
             <li>
-              If the sum is same then the next layer will be bombed and
-              again if we calculate the sum , the one with maximum sum is
-              declared as a winner
+              If the sum is equal, the neighboring circles of the now bombed
+              circles are also bombed, and the process continues till we have a
+              clear winner.
             </li>
           </ul>
           <br />

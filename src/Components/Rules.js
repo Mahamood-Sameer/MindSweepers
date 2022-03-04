@@ -24,21 +24,23 @@ function Rules() {
           <h3>Rules :</h3>
           <br />
           <ul className="rules_box">
+            <li>The game would be played in turns.</li>
+            <br />
             <li>
-              Numbers only between 1 to 40 can be inserted into the grid
-              (10x10).
+              In its turn, the team can insert any number ‘p’ from 2-40 in any
+              cell (i,j), which satisfies the following conditions:
+            </li>
+            <br />
+            <li  className="rules_sub">The number should not have been used before by any team.</li>
+            <br />
+            <li className="rules_sub">
+              Any of the diagonals passing through (i,j) should not have a
+              number whose gcd with p is equal to 1.
             </li>
             <br />
             <li>
-              In one turn, the player can insert any not used number p ([1,40])
-              into the cell (i,j) only if it’s gcd with all the two diagonal
-              elements (here diagonals passing through the cell (i,j) is
-              referred) is greater than 1.
-            </li>
-            <br />
-            <li>
-              In the end, if some player in his turn cannot insert any valid number
-              into the grid, he loses.
+              To put a number, the team must say- “Game Master mark ___ at ( _ ,
+              _ )”.
             </li>
           </ul>
           <br />
@@ -46,7 +48,9 @@ function Rules() {
             {" "}
             <div className="Playbtn">
               {" "}
-              <Link to="/game2" className="playLink">Play </Link>
+              <Link to="/game2" className="playLink">
+                Play{" "}
+              </Link>
             </div>
           </center>
         </div>

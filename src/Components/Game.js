@@ -353,7 +353,6 @@ function Game() {
           for (var k = 1; k < 41; k++) {
             if (Hash[k] === 0) {
               if (DiagonalCheck(k, i, j) === false) {
-                console.log(count, remaining);
                 count++;
               }
             }
@@ -370,7 +369,89 @@ function Game() {
     }
   };
 
-  useEffect(() => {}, []);
+  const HOVEREFFECT = (row, col, color) => {
+    //top right diagonal;
+    var i = row;
+    var j = col;
+    while (i >= 0 && j >= 0) {
+      if (arr[i][j] === "" && !disable[i][j]) {
+        document.getElementById(`${i}_${j}`).style.backgroundColor = color;
+      }
+      i--;
+      j--;
+    }
+    //Bottom left diagonal
+    i = row;
+    j = col;
+    while (i <= 9 && j <= 9) {
+      if (arr[i][j] === "" && !disable[i][j]) {
+        document.getElementById(`${i}_${j}`).style.backgroundColor = color;
+      }
+      i++;
+      j++;
+    }
+    //Top right diagonal
+    i = row;
+    j = col;
+    while (i >= 0 && j <= 9) {
+      if (arr[i][j] === "" && !disable[i][j]) {
+        document.getElementById(`${i}_${j}`).style.backgroundColor = color;
+      }
+      i--;
+      j++;
+    }
+    //Top right diagonal
+    i = row;
+    j = col;
+    while (i <= 9 && j >= 0) {
+      if (arr[i][j] === "" && !disable[i][j]) {
+        document.getElementById(`${i}_${j}`).style.backgroundColor = color;
+      }
+      i++;
+      j--;
+    }
+  };
+  const HOVEREFFECTREMOVER = (row, col, color) => {
+    //top right diagonal;
+    var i = row;
+    var j = col;
+    while (i >= 0 && j >= 0) {
+      if (!disable[i][j])
+        document.getElementById(`${i}_${j}`).style.backgroundColor = color;
+
+      i--;
+      j--;
+    }
+    //Bottom left diagonal
+    i = row;
+    j = col;
+    while (i <= 9 && j <= 9) {
+      if (!disable[i][j])
+        document.getElementById(`${i}_${j}`).style.backgroundColor = color;
+
+      i++;
+      j++;
+    }
+    //Top right diagonal
+    i = row;
+    j = col;
+    while (i >= 0 && j <= 9) {
+      if (!disable[i][j])
+        document.getElementById(`${i}_${j}`).style.backgroundColor = color;
+
+      i--;
+      j++;
+    }
+    //Top right diagonal
+    i = row;
+    j = col;
+    while (i <= 9 && j >= 0) {
+      if (!disable[i][j])
+        document.getElementById(`${i}_${j}`).style.backgroundColor = color;
+      i++;
+      j--;
+    }
+  };
 
   return (
     <>
@@ -416,7 +497,7 @@ function Game() {
           <h3>Numbers remaining to use : </h3>
           <div className="numbers_can_be_used">
             {Hash?.map((number, i) => {
-              if (!number && i !== 0) return <p>{i}</p>;
+              if (!number && i !== 0 && i !== 1) return <p>{i}</p>;
             })}
           </div>
         </div>
@@ -439,6 +520,12 @@ function Game() {
                       }}
                       id={`${i}_${j}`}
                       disabled={disable[i][j]}
+                      onMouseEnter={() => {
+                        HOVEREFFECT(i, j, "green");
+                      }}
+                      onMouseLeave={() => {
+                        HOVEREFFECTREMOVER(i, j, "white");
+                      }}
                     />
                   ))}
                 </div>
