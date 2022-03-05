@@ -39,7 +39,7 @@ function Rule3() {
             <br />
             <li>
               Each player would be given a superpower- they can rotate any of
-              the squares by x elements clockwise. They can use this superpower
+              the squares by y elements clockwise. They can use this superpower
               only once.
             </li>
             <br />

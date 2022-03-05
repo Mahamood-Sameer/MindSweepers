@@ -8,6 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { Input } from "@mui/material";
+import aarohan from '../Images/final-logo.png'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -58,6 +59,7 @@ function Home() {
 
   return (
     <>
+    <img src={aarohan} alt="" className="aarohan_logo" />
       <div className="home_container">
         <div className="home_container_left">
           <img
@@ -68,17 +70,17 @@ function Home() {
         </div>
         <div className="home__games_right">
           <Button className="links_to_games" onClick={handleClickOpen_Akshay}>
-            Rhombus Game (Akshay)
+            Rhombus Game 
           </Button>
           <br />
           <br />
           <Button className="links_to_games" onClick={handleClickOpen_varandeep}>
-            Special Matrix (Varandeep)
+            Special Matrix 
           </Button>
           <br />
           <br />
           <Button className="links_to_games" onClick={handleClickOpen_ankitbhaiya} >
-            Game3 (Ankit Bhaiya)
+            Rotating circle
           </Button>
         </div>
       </div>

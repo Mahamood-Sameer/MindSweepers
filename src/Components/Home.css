@@ -45,3 +45,8 @@
   margin: 10px;
   padding: 5px;
 }
+.aarohan_logo{
+  width: 100px;
+  object-fit: contain;
+  position: absolute;
+}

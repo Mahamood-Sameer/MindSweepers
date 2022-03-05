@@ -16,28 +16,40 @@ function Rules2() {
         <div className="header_rules_container">
           <br />
           <ul className="rules_box">
-            <li>Player 1 starts from any circle and fills ‘1’</li>
-            <br />
-            <li>Next Player 2 can place ‘1’ in any unmarked circle
-</li>
-            <br />
             <li>
-            The game stops when we have 1 circle left.
+              Team 1 starts from any circle and fills ‘1’ and adds 1 to their
+              score.
             </li>
             <br />
             <li>
-            The neighboring circles of the last remaining circle are bombed, hence the players lose the number on the bombed circle. 
-
+              To mark a circle the team would have to say “Game master mark
+              circle (x,y) with Z“ where (x,y) is the coordinate of the circle
+              and Z is the number to be marked.
             </li>
             <br />
             <li>
-            Then the sum of the remaining circles is calculated. The player with the maximum sum wins the game.
-
+              Next Team 2 can place ‘1’ in any unmarked circle and add 1 to
+              their score.
             </li>
             <br />
             <li>
-            If the sum is equal, the neighboring circles of the now bombed circles are also bombed, and the process continues till we have a clear winner. 
-
+              Next Team 1 places ‘2’ in any unmarked circle and adds 2 to their
+              score, then Team 2 places ‘2’ and this continues
+            </li>
+            <br />
+            <li>The game stops when we have 1 circle left.</li>
+            <br />
+            <li>
+              The numbers on the neighboring circles to the last remaining
+              circle are reduced from the score of the respective teams.
+            </li>
+            <br />
+            <li>The team with the maximum score wins the game.</li>
+            <br />
+            <li>
+              If the score of both the teams is equal, then the numbers on the
+              next neighboring circles are reduced from the respective team’s
+              score, and the process continues till we have a clear winner.
             </li>
           </ul>
           <br />
